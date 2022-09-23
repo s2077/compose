@@ -1,0 +1,178 @@
+version: '3.9'
+
+volumes:
+  jms-data:
+    name: jms-data
+  jms-web-log:
+    name: jms-web-log 
+  jms-log:
+    name: jms-log
+  koko-data:
+    name: koko-data
+  lion-data:
+    name: lion-data
+  magnus-data:
+    name: magnus-data
+
+services:
+  core:
+    image: jumpserver/core:${Version}
+    container_name: jms_core
+    restart: always
+    tty: true
+    command: start web
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - BOOTSTRAP_TOKEN=${BOOTSTRAP_TOKEN}
+      - DEBUG=${DEBUG}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    healthcheck:
+      test: "curl -fsL http://localhost:8080/api/health/ > /dev/null"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    volumes:
+      - jms-data:/opt/jumpserver/data
+      - jms-log:/opt/jumpserver/logs
+    networks:
+      - lab
+
+  celery:
+    image: jumpserver/core:${Version}
+    container_name: jms_celery
+    restart: always
+    tty: true
+    command: start task
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - BOOTSTRAP_TOKEN=${BOOTSTRAP_TOKEN}
+      - DEBUG=${DEBUG}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: "bash /opt/jumpserver/utils/check_celery.sh"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - jms-data:/opt/jumpserver/data
+      - jms-log:/opt/jumpserver/logs
+    networks:
+      - lab
+
+  koko:
+    image: jumpserver/koko:${Version}
+    container_name: jms_koko
+    restart: always
+    privileged: true
+    tty: true
+    environment:
+      CORE_HOST: http://core:8080
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
+      LOG_LEVEL: $LOG_LEVEL
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: "curl -fsL http://localhost:5000/koko/health/ > /dev/null"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - koko-data:/opt/koko/data
+    ports:
+      - 2222:2222
+    networks:
+      - lab
+
+  lion:
+    image: jumpserver/lion:${Version}
+    container_name: jms_lion
+    restart: always
+    tty: true
+    environment:
+      CORE_HOST: http://core:8080
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
+      LOG_LEVEL: $LOG_LEVEL
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: "curl -fsL http://localhost:8081/lion/health/ > /dev/null"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - lion-data:/opt/lion/data
+    networks:
+      - lab
+
+  magnus:
+    image: jumpserver/magnus:${Version}
+    container_name: jms_magnus
+    restart: always
+    tty: true
+    environment:
+      CORE_HOST: http://core:8080
+      BOOTSTRAP_TOKEN: $BOOTSTRAP_TOKEN
+      LOG_LEVEL: $LOG_LEVEL
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: "ps axu | grep -v 'grep' | grep magnus"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - magnus-data:/opt/magnus/data
+    ports:
+      - 33060:33060
+      - 33061:33061
+    networks:
+      - lab
+
+  web:
+    image: jumpserver/web:${Version}
+    container_name: jms_web
+    restart: always
+    tty: true
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: "curl -fsL http://localhost/ > /dev/null"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - jms-data:/opt/jumpserver/data
+      - jms-web-log:/var/log/nginx
+    ports:
+      - 8003:80
+    networks:
+      - lab

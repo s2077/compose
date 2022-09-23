@@ -1,0 +1,32 @@
+version: '3.9'
+
+volumes:
+  jms-data:
+    name: jms-data
+  jms-log:
+    name: jms-log
+
+services:
+  core:
+    image: jumpserver/core:${Version}
+    container_name: jms_core
+    tty: true
+    command: sleep
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - BOOTSTRAP_TOKEN=${BOOTSTRAP_TOKEN}
+      - DEBUG=${DEBUG}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - jms-data:/opt/jumpserver/data
+      - jms-log:/opt/jumpserver/logs
+    networks:
+      - lab

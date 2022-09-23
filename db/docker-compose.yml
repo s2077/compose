@@ -1,0 +1,64 @@
+version: "3.9"
+
+volumes:
+  redis-data:
+    name: redis-data
+  mysql-data:
+    name: mysql-data
+
+services:
+  phpmyadmin:
+    image: phpmyadmin:5.2.0
+    container_name: phpmyadmin
+    profiles:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT=200M
+      - MAX_EXECUTION_TIME=1000
+    ports:
+      - "8000:80"
+    networks:
+      - lab      
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    profiles:
+      - mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - lab      
+  redis:
+    image: redis:7.0.4
+    container_name: redis
+    command: redis-server --requirepass $REDIS_PASSWORD --loglevel warning --maxmemory-policy allkeys-lru
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    profiles:
+      - redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: "redis-cli -h 127.0.0.1 -p 6379 -a $$REDIS_PASSWORD info Replication"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - redis-data:/data
+    networks:
+      - lab
+  redis-insight:
+    image: redislabs/redisinsight:1.12.1
+    container_name: redis-insight
+    profiles:
+      - redis
+    ports:
+      - "8001:8001"
+    networks:
+      - lab      
