@@ -2,7 +2,7 @@
 
 ```bash
 # mod env
-mv .env.example .env
+cp .env.example .env
 
 # start
 docker-compose -f ./db/docker-compose.yml -f docker-compose.network.yml --profile mysql --profile redis  up -d

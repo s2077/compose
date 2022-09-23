@@ -14,7 +14,7 @@ flush privileges;
 2. env file
 
 ```bash
-mv .env.example .env
+cp .env.example .env
 ```
 
 3. install mysql and redis(option)
