@@ -12,3 +12,9 @@ cp .env.example .env
 docker-compose -f ./flare/docker-compose.yml up -d
 ```
 
+## expand
+
+- advanced settings: https://github.com/soulteary/docker-flare/blob/main/docs/advanced-startup.md
+- account settings: https://github.com/soulteary/docker-flare/blob/main/docs/application-account.md
+- custom icon: https://github.com/soulteary/docker-flare/blob/main/docs/material-design-icons.md
+- traefik: https://github.com/soulteary/traefik-example
