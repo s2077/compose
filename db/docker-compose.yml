@@ -62,4 +62,4 @@ services:
     ports:
       - "8001:8001"
     networks:
-      - lab      
+      - lab

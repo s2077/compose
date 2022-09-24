@@ -2,4 +2,5 @@
 **/.idea/**
 **/data/**
 **/prod/**
+**.prod.yml
 .env
