@@ -19,6 +19,8 @@ function install_docker(){
   # install docker-ce
   sudo apt-get update
   sudo apt-get install docker-ce
+  sudo systemctl enable docker.service
+  sudo systemctl start docker.service
   echo "docker install success"
 }
 
@@ -46,6 +48,7 @@ function config_registry_mirrors(){
   # }
   # EOF
   curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2.m.daocloud.io
+  sudo systemctl restart docker.service
 }
 
 
@@ -62,3 +65,4 @@ else
   install_docker
   install_compose_from_daocloud
   config_registry_mirrors
+fi
