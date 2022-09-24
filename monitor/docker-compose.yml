@@ -143,7 +143,7 @@ services:
   grafana:
     image: grafana/grafana:9.0.9
     container_name: grafana
-    user: "root"
+    user: root
     profiles:
       - prometheus
       - grafana
@@ -168,3 +168,48 @@ services:
       driver: "json-file"
       options:
         max-size: "1m"
+    
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: always
+    user: root
+    profiles:
+      - prometheus
+      - loki
+    ports:
+      - 3100:3100
+    expose:
+      - 3100
+    volumes:
+      - type: bind
+        source: ${LOKI_CONFIG_PATH}
+        target: /etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - lab
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: always
+    profiles:
+      - prometheus
+      - promtail
+    volumes:
+      - /var/log:/var/log:ro
+      - type: bind
+        source: ${PROMTAIL_CONFIG_PATH}
+        target: /etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - lab
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+      
