@@ -4,4 +4,5 @@
 **/prod/**
 **.prod.yml
 **/backups/**
+**/ssl/**
 .env
