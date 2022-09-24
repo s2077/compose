@@ -17,4 +17,4 @@ chmod +x init.sh
 | db         | Redis,MySQL |
 | flare      | 书签应用    |
 | jumpserver | 堡垒机            |
-| monitor | prometheus,garafana |
+| monitor | prometheus,garafana,loki |

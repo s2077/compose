@@ -39,3 +39,5 @@ sudo systemctl restart docker
 
 1. https://github.com/boTux-fr/docker-compose-loki
 2. https://grafana.com/docs/grafana/latest/datasources/loki/
+3. https://github.com/soulteary/Home-Network-Note/tree/master/example/monitor
+4. 
