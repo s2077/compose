@@ -5,8 +5,6 @@ volumes:
     name: prometheus-data
   grafana-data:
     name: grafana-data
-  grafana-datasource:
-    name: grafana-datasource
   grafana-dashboard:
     name: grafana-dashboard
 

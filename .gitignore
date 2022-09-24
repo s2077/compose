@@ -3,4 +3,5 @@
 **/data/**
 **/prod/**
 **.prod.yml
+**/backups/**
 .env
