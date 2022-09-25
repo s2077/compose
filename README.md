@@ -18,3 +18,17 @@ chmod +x init.sh
 | flare      | 书签应用    |
 | jumpserver | 堡垒机            |
 | monitor | prometheus,garafana,loki |
+
+## ToDo
+
+| name       | desc        |
+| ---------- | ----------- |
+| traefik        |  server  |
+| storage        |    |
+| dns        |    |
+
+
+## Reference
+
+1. https://github.com/shfshanyue/op-note
+2. https://github.com/soulteary/Home-Network-Note
