@@ -19,7 +19,7 @@ chmod +x init.sh
 | jumpserver | 堡垒机            |
 | monitor | prometheus,garafana,loki |
 
-## ToDo
+## Testing
 
 | name       | desc        |
 | ---------- | ----------- |
