@@ -29,7 +29,7 @@ function install_compose_from_daocloud(){
   echo "start install docker-compose"
   COMPOSE_VERSION=2.11.1
   curl -L https://get.daocloud.io/docker/compose/releases/download/v${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /tmp/docker-compose
-  sudo mv /usr/local/bin/docker-compose /usr/local/bin/docker-compose
+  sudo mv /tmp/docker-compose /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   echo "start docker-compose success"
 }
