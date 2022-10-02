@@ -26,6 +26,7 @@ chmod +x init.sh
 | traefik        |  server  |
 | storage        |    |
 | dns        |    |
+| obweb        | like flomo, simple online note  |
 
 
 ## Reference
