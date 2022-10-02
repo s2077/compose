@@ -15,6 +15,7 @@ services:
       - /bin/bash
       - -c
       - |
+          git config pull.rebase false
           chmod -R 700 /root && chmod 600 /root/.ssh/id_rsa && chmod 644 /root/.ssh/id_rsa.pub
           git config --global user.name "s2077" && git config --global user.email "s2077" && cd /ob-web && npm run dev
     ports:
