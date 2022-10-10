@@ -1,0 +1,14 @@
+{
+    "server": {
+        "host": "localhost",
+        "port": "8006"
+    },
+    "serv_path": "./",
+    "ob_name": "ob",
+    "feed_path": "./ob/Unsort/feeds.md",
+    "session_secret": "session_secret",
+    "db_path": "./db",
+    "user": "admin",
+    "pass": "admin",
+    "bot_token": ""
+}

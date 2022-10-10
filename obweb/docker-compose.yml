@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  obweb:
+    image: s2077/obweb:v1.0.0
+    container_name: obweb
+    restart: always
+    user: root
+    volumes:
+      - ${SSH_KEY_PATH}:/root/.ssh
+      - ${OB_PATH}:/ob-web/ob
+      - ./data/db:/ob-web/db
+      - ${CONFIG_PATH}:/ob-web/config/default.json
+    command: 
+      - /bin/bash
+      - -c
+      - |
+          git config pull.rebase false
+          chmod -R 700 /root && chmod 600 /root/.ssh/id_rsa && chmod 644 /root/.ssh/id_rsa.pub
+          git config --global user.name "s2077" && git config --global user.email "s2077" && cd /ob-web && npm run dev
+    ports:
+      - 8006:8006
+    networks:
+      - lab
