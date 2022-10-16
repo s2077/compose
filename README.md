@@ -24,10 +24,19 @@ chmod +x init.sh
 | name       | desc        |
 | ---------- | ----------- |
 | traefik        |  server  |
-| storage        |    |
 | dns        |    |
 | obweb        | like flomo, simple online note  |
+| mq        |  rabbitmq,  |
 
+
+## ToDo
+| name       | desc        |
+| ---------- | ----------- |
+| crawlab        |    |
+| xxl-job        |    |
+| nexus3        |    |
+| storage        | syncthing,   |
+| application        | python,   |
 
 ## Reference
 
