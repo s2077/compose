@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  gost:
+    image: ginuerzh/gost:latest
+    container_name: gost
+    restart: always
+    ports:
+      - 1080:1080
+    command: -L ss://aes-128-cfb:passcode@:1080 -F 'https://USER:PASS@DOMAIN:443'
+    networks:
+      - lab
