@@ -38,6 +38,8 @@ chmod +x init.sh
 | nexus3        |    |
 | storage        | syncthing,   |
 | application        | python,   |
+| fava        |    |
+
 
 ## Reference
 
