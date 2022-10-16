@@ -27,6 +27,7 @@ chmod +x init.sh
 | dns        |    |
 | obweb        | like flomo, simple online note  |
 | mq        |  rabbitmq,  |
+| gost        |    |
 
 
 ## ToDo
