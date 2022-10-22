@@ -1,0 +1,31 @@
+---
+version: '3.3'
+
+volumes:
+  gitea-data:
+    name: gitea-data
+
+services:
+  gitea-app:
+    image: gitea/gitea:1.17.3
+    container_name: gitea
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "3002:3002"          
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - gitea-data:/data
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - DB_TYPE=mysql
+      - DB_HOST=mysql:3306
+      - DB_NAME=gitea
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWD=${MYSQL_PASSWORD}
+    depends_on:
+      - gitea-db
+    networks:
+      - lab

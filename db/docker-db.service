@@ -1,0 +1,22 @@
+[Unit]
+Description=docker-db
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+
+WorkingDirectory=/opt/docker-db
+
+# Remove old containers, images and volumes
+ExecStartPre=/usr/local/bin/docker-compose --profile mysql --profile redis down
+ExecStartPre=/usr/local/bin/docker-compose --profile mysql --profile redis rm
+
+# Compose up
+ExecStart=/usr/local/bin/docker-compose --profile mysql --profile redis up
+
+# Compose down, remove containers and volumes
+ExecStop=/usr/local/bin/docker-compose --profile mysql --profile redis down
+
+[Install]
+WantedBy=multi-user.target
