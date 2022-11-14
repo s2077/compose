@@ -39,6 +39,7 @@ chmod +x init.sh
 | storage        | syncthing,   |
 | application        | python,   |
 | fava        |    |
+| rancher        |    |
 
 
 ## Reference
