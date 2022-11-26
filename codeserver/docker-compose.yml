@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  codeserver:
+    image: own-code-server:v1.0.0
+    container_name: codeserver
+    volumes:
+      - ${CODE_WORKSPACE}:/workspace
+      - ${CODE_CONFIG}:/home/coder/.config
+    ports:
+      - "8090:8080"

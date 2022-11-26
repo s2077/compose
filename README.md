@@ -28,6 +28,7 @@ chmod +x init.sh
 | obweb        | like flomo, simple online note  |
 | mq        |  rabbitmq,  |
 | gitea        |    |
+| rancher        |    |
 
 
 ## ToDo
@@ -39,7 +40,7 @@ chmod +x init.sh
 | storage        | syncthing,   |
 | application        | python,   |
 | fava        |    |
-| rancher        |    |
+| codeserver        |    |
 
 
 ## Reference
