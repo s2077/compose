@@ -22,3 +22,5 @@ RUN apt update && apt install -y build-essential cron vim net-tools iputils-ping
     chmod +x /usr/local/bin/* && \
     rm -rf /tmp/* && \
     echo "root 用户命令执行完毕..."
+
+USER coder

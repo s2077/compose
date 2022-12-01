@@ -29,6 +29,7 @@ chmod +x init.sh
 | mq        |  rabbitmq,  |
 | gitea        |    |
 | rancher        |    |
+| codeserver        |    |
 
 
 ## ToDo
@@ -40,7 +41,6 @@ chmod +x init.sh
 | storage        | syncthing,   |
 | application        | python,   |
 | fava        |    |
-| codeserver        |    |
 
 
 ## Reference
