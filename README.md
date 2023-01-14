@@ -41,6 +41,7 @@ chmod +x init.sh
 | storage        | syncthing,   |
 | application        | python,   |
 | fava        |    |
+| clash clash ui |  network tools  |
 
 
 ## Reference
