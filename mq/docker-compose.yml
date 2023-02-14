@@ -25,7 +25,6 @@ services:
       - TZ=Asia/Shanghai
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
-      - RABBITMQ_ERLANG_COOKIE=rabbitcookie
     ports:
       - "5672:5672"
       - "15672:15672"
